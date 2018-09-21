@@ -8,14 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="279dp"
-        android:layout_height="260dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -25,4 +17,14 @@
         android:layout_marginBottom="165dp"
         android:text="Posicione o celular sobre o código"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.example.a06.trabalhoandroid.ScanerView"
+        android:layout_width="337dp"
+        android:layout_height="271dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="21dp" />
 </RelativeLayout>

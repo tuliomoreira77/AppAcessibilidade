@@ -15,7 +15,7 @@ public class Scanner extends Fragment {
 
 
     public Scanner() {
-        // Required empty public constructor
+
     }
 
 

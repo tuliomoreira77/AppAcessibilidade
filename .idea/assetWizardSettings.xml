@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="103" />
+                                                <entry key="scalingPercent" value="124" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -36,10 +36,10 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="e59800" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../cool-cartoon-glasses-124589-5622919.jpg" />
-                                      <entry key="foregroundLayerName" value="android_de_oculos_layer" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../sample.png" />
+                                      <entry key="foregroundLayerName" value="qr_big_layer" />
                                       <entry key="legacyIconShape" value="NONE" />
-                                      <entry key="outputName" value="android_de_oculos" />
+                                      <entry key="outputName" value="qr_big" />
                                     </map>
                                   </option>
                                 </PersistentState>
