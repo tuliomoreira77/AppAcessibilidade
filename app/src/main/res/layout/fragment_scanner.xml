@@ -18,9 +18,8 @@
         android:text="Posicione o celular sobre o código"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment"
-        android:name="com.example.a06.trabalhoandroid.ScanerView"
         android:layout_width="337dp"
         android:layout_height="271dp"
         android:layout_alignParentStart="true"
