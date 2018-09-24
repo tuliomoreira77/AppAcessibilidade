@@ -20,6 +20,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class ScanerView extends Fragment implements ZXingScannerView.ResultHandler{
 
     private ZXingScannerView mScannerView;
+    TtsData ttsdata;
 
     public ScanerView() {
         // Required empty public constructor
@@ -29,6 +30,7 @@ public class ScanerView extends Fragment implements ZXingScannerView.ResultHandl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ttsdata = ((MainActivity)getParentFragment().getActivity()).getTtsData();
         mScannerView = new ZXingScannerView(getActivity());
         return mScannerView;
     }
@@ -47,7 +49,7 @@ public class ScanerView extends Fragment implements ZXingScannerView.ResultHandl
     public void handleResult(com.google.zxing.Result rawResult) {
         String s = rawResult.getText();
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-
+        ttsdata.setData(s);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
