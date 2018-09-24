@@ -3,6 +3,8 @@ package com.example.a06.trabalhoandroid;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.session.MediaController;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         Intent ttsIntent = new Intent();
         ttsIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
