@@ -1,8 +1,12 @@
 package com.example.a06.trabalhoandroid;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +26,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        checkPermission(Manifest.permission.CAMERA);
+        checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
+        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_lay);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +73,10 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.const_lay, new Scanner()).commit();
+        } else if (id == R.id.color_scanner) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.const_lay, new ColorScaner()).commit();
         } else if (id == R.id.generator) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -74,5 +86,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_lay);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void checkPermission(String s)
+    {
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                s);
+
+        if(permissionCheck != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{s},
+                    1);
+        }
     }
 }

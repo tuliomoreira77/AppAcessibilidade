@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import javax.xml.transform.Result;
 
@@ -44,6 +45,9 @@ public class ScanerView extends Fragment implements ZXingScannerView.ResultHandl
     }
 
     public void handleResult(com.google.zxing.Result rawResult) {
+        String s = rawResult.getText();
+        Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

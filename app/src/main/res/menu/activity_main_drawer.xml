@@ -9,6 +9,10 @@
             android:icon="@drawable/codigo"
             android:title="Escaneador de QRCode" />
         <item
+            android:id="@+id/color_scanner"
+            android:icon="@drawable/ic_color"
+            android:title="Escaneador de Cores" />
+        <item
             android:id="@+id/generator"
             android:icon="@drawable/ic_qrcode"
             android:title="Gerador de QRCode" />

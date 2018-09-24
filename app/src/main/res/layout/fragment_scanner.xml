@@ -16,14 +16,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="165dp"
         android:text="Posicione o celular sobre o código"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/fragment"
-        android:layout_width="337dp"
+        android:layout_width="295dp"
         android:layout_height="271dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="21dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp" />
 </RelativeLayout>
