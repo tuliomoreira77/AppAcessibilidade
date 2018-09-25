@@ -51,6 +51,13 @@ public class Generator extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_generator, container, false);
         editText = (EditText) v.findViewById(R.id.editText);
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                editText.setText("");
+            }
+        });
+
         imageView = (ImageView) v.findViewById(R.id.imageView2);
         button = (Button) v.findViewById(R.id.button);
         imgLoad = (ProgressBar) v.findViewById(R.id.carregamento_imagem);
