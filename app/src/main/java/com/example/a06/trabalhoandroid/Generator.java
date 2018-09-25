@@ -1,18 +1,21 @@
 package com.example.a06.trabalhoandroid;
 
 
+import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.support.v4.content.ContextCompat;
+import android.widget.ProgressBar;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -30,6 +33,7 @@ public class Generator extends Fragment {
     Button button;
     Bitmap bitmap;
     ImageView imageView;
+    ProgressBar imgLoad;
 
     public Generator() {
         // Required empty public constructor
@@ -44,31 +48,35 @@ public class Generator extends Fragment {
         editText = (EditText) v.findViewById(R.id.editText);
         imageView = (ImageView) v.findViewById(R.id.imageView2);
         button = (Button) v.findViewById(R.id.button);
-        final Bitmap img = BitmapFactory.decodeResource(v.getResources(),
-                R.mipmap.gerando_codigo);
+        imgLoad = (ProgressBar) v.findViewById(R.id.carregamento_imagem);
+        imgLoad.setVisibility(View.INVISIBLE);
         button.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                EditTextValue = editText.getText().toString();
-                try {
-                    //travar
-                    imageView.setImageBitmap(img);
-                    bitmap = generateQRcode(EditTextValue);
-                    imageView.setImageBitmap(bitmap);
+                //EditTextValue = editText.getText().toString();
+                /*try {
+                    //imgLoad.setVisibility(View.VISIBLE);
+                    //bitmap = generateQRcode(EditTextValue);
+                    //imageView.setImageBitmap(bitmap);
+                    //imgLoad.setVisibility(View.GONE);
                     //desravar
                 } catch (WriterException e) {
                     e.printStackTrace();
-                }
+                }*/
+                hideSoftKeyboard(getActivity());
+                new imgTask().execute();
             }
         });
         return v;
     }
 
-    public void generatorClick(View v)
-    {
-
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
+
 
     Bitmap generateQRcode(String text) throws WriterException
     {
@@ -103,5 +111,38 @@ public class Generator extends Fragment {
         bitmap.setPixels(pixels, 0, 500, 0, 0, bitMatrixWidth, bitMatrixHeight);
 
         return bitmap;
+    }
+
+    private class imgTask extends AsyncTask<Void, Integer, Integer> {
+
+        protected void onPreExecute() {
+            button.setClickable(false);
+            imgLoad.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.INVISIBLE);
+            Snackbar.make(getView(), "Gerando QRCode", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            EditTextValue = editText.getText().toString();
+            try {
+                bitmap = generateQRcode(EditTextValue);
+                return 0;
+            } catch (WriterException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer i) {
+            if(i == 0) {
+                imageView.setImageBitmap(bitmap);
+                imageView.setVisibility(View.VISIBLE);
+            }
+            imgLoad.setVisibility(View.GONE);
+            button.setClickable(true);
+        }
     }
 }

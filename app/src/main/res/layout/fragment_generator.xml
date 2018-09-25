@@ -31,6 +31,15 @@
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="Gerar" />
 
+    <ProgressBar
+        android:id="@+id/carregamento_imagem"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="154dp"
+        android:layout_height="145dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="172dp" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="305dp"
@@ -50,4 +59,6 @@
         android:clickable="true"
         android:src="@drawable/ic_menu_share"
         app:backgroundTint="@android:color/holo_orange_light" />
+
+
 </RelativeLayout>
