@@ -2,9 +2,13 @@ package com.example.a06.trabalhoandroid;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,6 +38,7 @@ public class Generator extends Fragment {
     Bitmap bitmap;
     ImageView imageView;
     ProgressBar imgLoad;
+    FloatingActionButton shareButton;
 
     public Generator() {
         // Required empty public constructor
@@ -50,6 +55,20 @@ public class Generator extends Fragment {
         button = (Button) v.findViewById(R.id.button);
         imgLoad = (ProgressBar) v.findViewById(R.id.carregamento_imagem);
         imgLoad.setVisibility(View.INVISIBLE);
+        shareButton = (FloatingActionButton) v.findViewById(R.id.share_button);
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                String bitmapPath = MediaStore.Images.Media.insertImage(
+                        getActivity().getContentResolver(), bitmap,"title", null);
+                Uri bitmapUri = Uri.parse(bitmapPath);
+                shareIntent.setType("image/*");
+                shareIntent.putExtra(Intent.EXTRA_STREAM,bitmapUri);
+                startActivity(Intent.createChooser(shareIntent,"Share via"));
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)

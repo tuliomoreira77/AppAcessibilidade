@@ -141,4 +141,9 @@ public class MainActivity extends AppCompatActivity
     {
         return ttsData;
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        tts.shutdown();
+    }
 }
