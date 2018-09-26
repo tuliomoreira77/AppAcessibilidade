@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        Intent ttsIntent = new Intent();
+        /*Intent ttsIntent = new Intent();
         ttsIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(ttsIntent, 1000);
+        startActivityForResult(ttsIntent, 1000);*/
 
         tts = new TextToSpeech(getBaseContext(), new TextToSpeech.OnInitListener() {
             public void onInit(int status) {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.const_lay, new Scanner()).commit();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode,
+    /*protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         if (requestCode == 1000) {
             if (resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(installIntent);
             }
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

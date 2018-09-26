@@ -18,12 +18,23 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="backgroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="scalingPercent" value="36" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundImage">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="124" />
+                                                <entry key="scalingPercent" value="69" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,13 +44,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="e59800" />
-                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../sample.png" />
-                                      <entry key="foregroundLayerName" value="qr_big_layer" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../st,small,215x235-pad,210x230,f8f8f8.lite-1u1.jpg" />
+                                      <entry key="foregroundLayerName" value="qr_android_grande_layer" />
                                       <entry key="legacyIconShape" value="NONE" />
-                                      <entry key="outputName" value="qr_big" />
+                                      <entry key="outputName" value="ic_android_grande" />
                                     </map>
                                   </option>
                                 </PersistentState>

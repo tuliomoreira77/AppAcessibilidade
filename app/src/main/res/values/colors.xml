@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffd769</color>
     <color name="colorPrimaryDark">#ffaa00</color>
-    <color name="colorAccent">#6c2f00</color>
+    <color name="colorAccent">#af6e5f</color>
     <color name="QRBlack">#000000</color>
     <color name="QRWrite">#ffffff</color>
 </resources>
