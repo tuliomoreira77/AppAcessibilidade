@@ -66,6 +66,8 @@ public class Generator extends Fragment {
 
         shareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(bitmap == null)
+                    return;
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 String bitmapPath = MediaStore.Images.Media.insertImage(
                         getActivity().getContentResolver(), bitmap,"title", null);

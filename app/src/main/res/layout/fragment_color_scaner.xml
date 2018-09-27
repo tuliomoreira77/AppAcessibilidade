@@ -8,11 +8,11 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:id="@+id/color_lay"
-        android:layout_width="286dp"
-        android:layout_height="472dp"
-        android:layout_centerInParent="true">
-
-    </RelativeLayout>
+    <TextureView
+        android:id="@+id/textureView"
+        android:layout_width="262dp"
+        android:layout_height="333dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp" />
 </RelativeLayout>
