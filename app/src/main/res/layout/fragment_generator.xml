@@ -19,7 +19,8 @@
         android:layout_marginTop="17dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Digite um texto para o código" />
+        android:text="Digite um texto para o código"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/button"
@@ -28,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
-        android:backgroundTint="@android:color/holo_orange_light"
+        android:backgroundTint="@color/ColorPrimaryLight"
         android:text="Gerar" />
 
     <ProgressBar
@@ -36,29 +37,24 @@
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="154dp"
         android:layout_height="145dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="172dp" />
+        android:layout_centerInParent="true" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="305dp"
         android:layout_height="259dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="110dp"
-         />
+        android:layout_centerInParent="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="74dp"
+        android:layout_height="63dp"
+        android:layout_alignEnd="@+id/imageView2"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="50dp"
         android:clickable="true"
         android:src="@drawable/ic_menu_share"
-        app:backgroundTint="@android:color/holo_orange_light" />
+        app:backgroundTint="@color/ColorPrimaryLight" />
 
 
 </RelativeLayout>

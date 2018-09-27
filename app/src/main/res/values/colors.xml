@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffd769</color>
-    <color name="colorPrimaryDark">#ffaa00</color>
-    <color name="colorAccent">#af6e5f</color>
+    <color name="colorPrimary">#195281</color>
+    <color name="colorPrimaryDark">#237ec9</color>
+    <color name="colorAccent">#1a5a8f</color>
     <color name="QRBlack">#000000</color>
     <color name="QRWrite">#ffffff</color>
+    <color name="ColorPrimaryLight">#6da1cc</color>
 </resources>
