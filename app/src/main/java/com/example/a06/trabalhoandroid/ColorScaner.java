@@ -68,15 +68,15 @@ public class ColorScaner extends Fragment {
         Bitmap image = textureView.getBitmap();
         int width= image.getWidth();
         int height= image.getHeight();
+        System.out.println("Altura: " + Integer.toString(width));
         int centerX=width/2;
         int centerY=height/2;
 
         //int pixel = image.getPixel(centerX,centerY);
         //String cor = DescobreCor.getNome(pixel);
-        int corId = DescobreCor.contaPixels(image,40);
-        String cor = DescobreCor.getNomePorId(corId);
-        Toast.makeText(getContext(), cor,Toast.LENGTH_LONG).show();
-        ttsdata.setData(cor);
+        Cor cor = DescobreCor.contaPixels(image,100);
+        Toast.makeText(getContext(), cor.getNome(),Toast.LENGTH_SHORT).show();
+        ttsdata.setData(cor.getNome());
     }
 
     @Override

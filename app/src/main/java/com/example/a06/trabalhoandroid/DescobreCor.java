@@ -5,7 +5,7 @@ import android.graphics.Color;
 
 public class DescobreCor {
 
-    public static String getNome(int cor)
+    /*public static String getNome(int cor)
     {
         float hsv[] = new float[3];
         int hue,sat,val;
@@ -41,39 +41,9 @@ public class DescobreCor {
             return "Vermelho";
         }
         return nomeCor;
-    }
+    }*/
 
-    public static String getNomePorId(int cor)
-    {
-        if(cor == 1){
-            return "Branco";
-        } else if(cor == 2){
-            return "Cinza";
-        } else if(cor == 3){
-            return "Preto";
-        } else if(cor == 4){
-            return "Vermelho";
-        } else if(cor == 5){
-            return "Laranja";
-        } else if(cor == 6){
-            return "Amarelo";
-        } else if(cor == 7){
-            return "Verde";
-        } else if(cor == 8){
-            return "Azul Claro";
-        } else if(cor == 9){
-            return "Azul Escuro";
-        } else if(cor == 10){
-            return "Roxo";
-        } else if(cor == 11){
-            return "Rosa";
-        } else if(cor == 12){
-            return "Vermelho";
-        }
-        return "Cor não detectável";
-    }
-
-    static int getId(int cor)
+    public static Cor getByValue(int cor)
     {
         float hsv[] = new float[3];
         int hue,sat,val;
@@ -81,37 +51,69 @@ public class DescobreCor {
         hue = (int) hsv[0];
         sat = (int) (hsv[1]*100);
         val = (int) (hsv[2]*100);
-        String nomeCor = "Cor não detectável";
 
         if(sat <= 5 && val > 90){
-            return 1;
-        } else if(sat < 15){
-            return 2;
-        } else if(val<10){
-            return 3;
+            return new Cor("Branco",0);
+        } else if(sat < 15 && val>= 10){
+            return new Cor("Cinza",1);
+        } else if(val< 20){
+            return new Cor("Preto", 2);
         } else if(hue <= 10){
-            return 4;
+            return new Cor("Vermelho",3);
         } else if(hue <= 40){
-            return 5;
+            return new Cor( "Laranja", 4);
         } else if(hue <= 70){
-            return 6;
+            return new Cor("Amarelo",5);
         } else if(hue <= 160){
-            return 7;
+            return new Cor("Verde",6);
         } else if(hue <= 210){
-            return 8;
+            return new Cor("Azul Claro",7);
         } else if(hue <= 250){
-            return 9;
+            return new Cor("Azul Escuro",8);
         } else if(hue <= 285){
-            return 10;
+            return new Cor("Roxo",9);
         } else if(hue <= 340){
-            return 12;
+            return new Cor("Rosa",10);
         } else if(hue <= 360){
-            return 13;
+            return new Cor("Vermelho",11);
         }
-        return 0;
+
+        return new Cor("Vazio", -1);
     }
 
-    public static int contaPixels(Bitmap image, int tamanho)
+    public static Cor getById(int id)
+    {
+        if(id == 0){
+            return new Cor("Branco",0);
+        } else if(id == 1){
+            return new Cor("Cinza",1);
+        } else if(id == 2){
+            return new Cor("Preto", 2);
+        } else if(id == 3){
+            return new Cor("Vermelho",3);
+        } else if(id == 4){
+            return new Cor( "Laranja", 4);
+        } else if(id == 5){
+            return new Cor("Amarelo",5);
+        } else if(id == 6){
+            return new Cor("Verde",6);
+        } else if(id == 7){
+            return new Cor("Azul Claro",7);
+        } else if(id == 8){
+            return new Cor("Azul Escuro",8);
+        } else if(id == 9){
+            return new Cor("Roxo",9);
+        } else if(id == 10){
+            return new Cor("Rosa",10);
+        } else if(id == 11){
+            return new Cor("Vermelho",11);
+        }
+
+        return new Cor("Vazio", -1);
+    }
+
+
+    public static Cor contaPixels(Bitmap image, int tamanho)
     {
         int inicioX = image.getWidth()/2 - tamanho/2;
         int inicioY = image.getHeight()/2 - tamanho/2;
@@ -125,7 +127,7 @@ public class DescobreCor {
         {
             for(int j=0;j<tamanho;j++)
             {
-                int cor = getId(image.getPixel(inicioX+i,inicioY+j));
+                int cor = DescobreCor.getByValue(image.getPixel(inicioX+i,inicioY+j)).getId();
                 id[cor]++;
             }
         }
@@ -135,7 +137,7 @@ public class DescobreCor {
                 idMax = i+1;
         }
 
-        return idMax;
+        return DescobreCor.getById(idMax);
     }
 
     static int numCores()
