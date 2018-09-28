@@ -13,10 +13,12 @@ import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,6 +29,8 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.zxing.WriterException;
 
 import java.util.Collections;
 
@@ -67,8 +71,10 @@ public class ColorScaner extends Fragment {
         int centerX=width/2;
         int centerY=height/2;
 
-        int pixel = image.getPixel(centerX,centerY);
-        String cor = DescobreCor.getNome(pixel);
+        //int pixel = image.getPixel(centerX,centerY);
+        //String cor = DescobreCor.getNome(pixel);
+        int corId = DescobreCor.contaPixels(image,40);
+        String cor = DescobreCor.getNomePorId(corId);
         Toast.makeText(getContext(), cor,Toast.LENGTH_LONG).show();
         ttsdata.setData(cor);
     }
@@ -77,6 +83,31 @@ public class ColorScaner extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         camera.closeSafe();
+    }
+
+    private class colorTask extends AsyncTask<Bitmap, Integer, Integer> {
+
+        protected void onPreExecute() {
+            Bitmap image = textureView.getBitmap();
+            int width= image.getWidth();
+            int height= image.getHeight();
+            int centerX=width/2;
+            int centerY=height/2;
+
+
+        }
+
+        @Override
+        protected Integer doInBackground(Bitmap... params) {
+
+            return 1;
+        }
+
+        @Override
+        protected void onPostExecute(Integer i) {
+
+        }
+
     }
 }
 
