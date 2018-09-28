@@ -17,6 +17,7 @@ import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Range;
 import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -131,6 +132,12 @@ public class MostraCamera implements TextureView.SurfaceTextureListener{
         backgroundHandler = new Handler(backgroundThread.getLooper());
     }
 
+    public void closeSafe()
+    {
+        closeBackgroundThread();
+        closeCamera();
+    }
+
     private void closeCamera() {
         if (cameraCaptureSession != null) {
             cameraCaptureSession.close();
@@ -158,6 +165,9 @@ public class MostraCamera implements TextureView.SurfaceTextureListener{
             Surface previewSurface = new Surface(surfaceTexture);
             captureRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             captureRequestBuilder.addTarget(previewSurface);
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getRange());//This line of code is used for adjusting the fps range and fixing the dark preview
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
+            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
 
             cameraDevice.createCaptureSession(Collections.singletonList(previewSurface),
                     new CameraCaptureSession.StateCallback() {
@@ -185,6 +195,29 @@ public class MostraCamera implements TextureView.SurfaceTextureListener{
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
+    }
+    private Range<Integer> getRange() {
+        CameraCharacteristics chars = null;
+        try {
+            chars = cameraManager.getCameraCharacteristics(cameraId);
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+        Range<Integer>[] ranges = chars.get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES);
+
+        Range<Integer> result = null;
+
+        for (Range<Integer> range : ranges) {
+            int upper = range.getUpper();
+
+            // 10 - min range upper for my needs
+            if (upper >= 10) {
+                if (result == null || upper < result.getUpper().intValue()) {
+                    result = range;
+                }
+            }
+        }
+        return result;
     }
 
     public void lock() {

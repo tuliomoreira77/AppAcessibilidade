@@ -2,7 +2,7 @@ package com.example.a06.trabalhoandroid;
 
 import android.graphics.Color;
 
-public class descobreCor {
+public class DescobreCor {
 
     static String getNome(int cor)
     {
@@ -16,6 +16,8 @@ public class descobreCor {
 
         if(sat <= 5 && val > 90){
             return "Branco";
+        } else if(sat < 15){
+            return "Cinza";
         } else if(val<10){
             return "Preto";
         } else if(hue <= 10){
