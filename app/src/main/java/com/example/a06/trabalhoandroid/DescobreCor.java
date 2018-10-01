@@ -5,7 +5,7 @@ import android.graphics.Color;
 
 public class DescobreCor {
 
-    /*public static String getNome(int cor)
+    public static int normalize(int cor)
     {
         float hsv[] = new float[3];
         int hue,sat,val;
@@ -15,33 +15,33 @@ public class DescobreCor {
         val = (int) (hsv[2]*100);
         String nomeCor = "Cor não detectável";
 
-        if(sat <= 5 && val > 90){
-            return "Branco";
-        } else if(sat < 15){
-            return "Cinza";
-        } else if(val<10){
-            return "Preto";
+        if(sat <= 10 && val > 75){
+            return Color.WHITE;
+        } else if(sat < 10 && val >= 20){
+            return Color.GRAY;
+        } else if(val< 30){
+            return Color.BLACK;
         } else if(hue <= 10){
-            return "Vermelho";
+            return Color.RED;
         } else if(hue <= 40){
-            return "Laranja";
+            return Color.RED;
         } else if(hue <= 70){
-            return "Amarelo";
+            return Color.YELLOW;
         } else if(hue <= 160){
-            return "Verde";
+            return Color.GREEN;
         } else if(hue <= 210){
-            return "Azul Claro";
+            return Color.CYAN;
         } else if(hue <= 250){
-            return "Azul Escuro";
+            return Color.BLUE;
         } else if(hue <= 285){
-            return "Roxo";
+            return Color.MAGENTA;
         } else if(hue <= 340){
-            return "Rosa";
+            return Color.MAGENTA;
         } else if(hue <= 360){
-            return "Vermelho";
+            return Color.RED;
         }
-        return nomeCor;
-    }*/
+        return Color.TRANSPARENT;
+    }
 
     public static Cor getByValue(int cor)
     {
@@ -138,6 +138,20 @@ public class DescobreCor {
         }
 
         return DescobreCor.getById(idMax);
+    }
+
+    public static Bitmap normalizaImagem(Bitmap imagem)
+    {
+        Bitmap imgNor = imagem;
+        for(int i=0; i < imgNor.getWidth(); i++)
+        {
+            for(int j=0; j < imgNor.getHeight(); j++)
+            {
+                int pixelNormalized = DescobreCor.normalize(imagem.getPixel(i,j));
+                imgNor.setPixel(i,j,pixelNormalized);
+            }
+        }
+        return imgNor;
     }
 
     static int numCores()

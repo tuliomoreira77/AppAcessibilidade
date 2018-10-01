@@ -167,8 +167,8 @@ public class MostraCamera implements TextureView.SurfaceTextureListener{
             captureRequestBuilder.addTarget(previewSurface);
             captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getRange());//This line of code is used for adjusting the fps range and fixing the dark preview
             captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
-            captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
-
+            //captureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
+            captureRequestBuilder.set(CaptureRequest.BLACK_LEVEL_LOCK,false);
             cameraDevice.createCaptureSession(Collections.singletonList(previewSurface),
                     new CameraCaptureSession.StateCallback() {
 
@@ -196,6 +196,7 @@ public class MostraCamera implements TextureView.SurfaceTextureListener{
             e.printStackTrace();
         }
     }
+
     private Range<Integer> getRange() {
         CameraCharacteristics chars = null;
         try {

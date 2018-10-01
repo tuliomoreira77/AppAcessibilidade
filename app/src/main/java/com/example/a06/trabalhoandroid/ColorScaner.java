@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -72,11 +73,14 @@ public class ColorScaner extends Fragment {
         int centerX=width/2;
         int centerY=height/2;
 
+        Bitmap imgNor = DescobreCor.normalizaImagem(image);
+        String bitmapPath = MediaStore.Images.Media.insertImage(
+                getActivity().getContentResolver(), imgNor,"title", null);
         //int pixel = image.getPixel(centerX,centerY);
         //String cor = DescobreCor.getNome(pixel);
-        Cor cor = DescobreCor.contaPixels(image,100);
-        Toast.makeText(getContext(), cor.getNome(),Toast.LENGTH_SHORT).show();
-        ttsdata.setData(cor.getNome());
+        //Cor cor = DescobreCor.contaPixels(image,100);
+        //Toast.makeText(getContext(), cor.getNome(),Toast.LENGTH_SHORT).show();
+        //ttsdata.setData(cor.getNome());
     }
 
     @Override
