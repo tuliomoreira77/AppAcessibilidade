@@ -73,7 +73,8 @@ public class ColorScaner extends Fragment {
         int centerX=width/2;
         int centerY=height/2;
 
-        Bitmap imgNor = DescobreCor.normalizaImagem(image);
+        //Bitmap imgNor = DescobreCor.normalizaImagem(image);
+        Bitmap imgNor = DescobreCor.blur(image);
         String bitmapPath = MediaStore.Images.Media.insertImage(
                 getActivity().getContentResolver(), imgNor,"title", null);
         //int pixel = image.getPixel(centerX,centerY);

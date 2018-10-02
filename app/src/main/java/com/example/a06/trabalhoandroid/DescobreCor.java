@@ -154,6 +154,35 @@ public class DescobreCor {
         return imgNor;
     }
 
+    public static Bitmap blur(Bitmap imagem)
+    {
+        ConvolutionMatrix blur = new ConvolutionMatrix(3);
+        double[][] filter = {{(1.0/9),(1.0/9),(1.0/9)},{(1.0/9),(1.0/9),(1.0/9)},{(1.0/9),(1.0/9),(1.0/9)}};
+        blur.applyConfig(filter);
+        Bitmap imgBlur = ConvolutionMatrix.computeConvolution3x3(imagem,blur);
+        return imgBlur;
+    }
+
+    public static Bitmap edge(Bitmap imagem)
+    {
+        ConvolutionMatrix edge = new ConvolutionMatrix(3);
+        double[][] filterX = {{1,0,-1},{2,0,-2},{1,0,-1}};
+        edge.applyConfig(filterX);
+        Bitmap imgX = ConvolutionMatrix.computeConvolution3x3(imagem,edge);
+        double[][] filterY = {{1,2,1},{0,0,0},{-1,-2,-1}};
+        edge.applyConfig(filterY);
+        Bitmap imgY = ConvolutionMatrix.computeConvolution3x3(imagem,edge);
+        Bitmap imgEdge = Bitmap.createBitmap(imagem.getWidth(), imagem.getHeight(), imagem.getConfig());
+        for(int i=0;i< imagem.getWidth();i++)
+        {
+            for(int j=0;j < imagem.getHeight();j++)
+            {
+                int pixel = (int) Math.sqrt(Math.pow(imgX.getPixel(i,j),2) + Math.pow(imgY.getPixel(i,j),2));
+            }
+        }
+        return imgEdge;
+    }
+
     static int numCores()
     {
         return 12;
