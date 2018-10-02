@@ -31,6 +31,11 @@ public class ConvolutionMatrix
         }
     }
 
+    public static void fft()
+    {
+        
+    }
+
     public static Bitmap computeConvolution3x3(Bitmap src, ConvolutionMatrix matrix) {
         int width = src.getWidth();
         int height = src.getHeight();
