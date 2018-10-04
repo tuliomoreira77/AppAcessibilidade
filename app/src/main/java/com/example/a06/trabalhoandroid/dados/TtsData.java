@@ -1,4 +1,4 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.dados;
 
 import android.speech.tts.TextToSpeech;
 import org.w3c.dom.Text;

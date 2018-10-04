@@ -1,4 +1,4 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.fragmentos;
 
 
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.a06.trabalhoandroid.R;
+import com.example.a06.trabalhoandroid.acessoCamera.ScanerView;
 
 
 public class Scanner extends Fragment {

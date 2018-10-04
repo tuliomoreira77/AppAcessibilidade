@@ -1,39 +1,22 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.fragmentos;
 
 
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.SurfaceTexture;
-import android.graphics.drawable.BitmapDrawable;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.params.StreamConfigurationMap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Size;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.zxing.WriterException;
-
-import java.util.Collections;
+import com.example.a06.trabalhoandroid.MainActivity;
+import com.example.a06.trabalhoandroid.R;
+import com.example.a06.trabalhoandroid.dados.TtsData;
+import com.example.a06.trabalhoandroid.acessoCamera.MostraCamera;
+import com.example.a06.trabalhoandroid.processamentoDeImagens.DescobreCor;
 
 
 public class ColorScaner extends Fragment {

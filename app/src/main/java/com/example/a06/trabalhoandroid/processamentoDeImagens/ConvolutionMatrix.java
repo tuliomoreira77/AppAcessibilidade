@@ -1,8 +1,7 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.processamentoDeImagens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 
 import org.jtransforms.fft.FloatFFT_2D;
 
@@ -34,6 +33,83 @@ public class ConvolutionMatrix
         }
     }
 
+    public static Bitmap fastEdge(Bitmap image)
+    {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int lenghtReal = width*height;
+        int lenghComp = lenghtReal*2;
+        int[] imgInt = new int[lenghtReal];
+
+        float[] dataComplex = new float[width*2*height];
+        float[] kernelComplex = new float[width*2*height];
+        float[] result = new float[width*2*height];
+
+        int[] Gx = new int[lenghtReal];
+        int[] Gy = new int[lenghtReal];
+
+        float[] kernelX = {-1,0,1,-1,0,2,-1,0,1};
+        float[] kernelY = {1,2,1,0,0,0,-1,-2,-1};
+
+        float[] kernelBig = new float[width*2*height];
+        float[] data = new float[lenghtReal];
+
+        FloatFFT_2D floatFFT2D = new FloatFFT_2D(width,height);
+
+        image.getPixels(imgInt,0,width,0,0,width,height);
+
+        for(int i=0;i<lenghtReal;i++)
+            data[i] = (float)(0.299 * Color.red(imgInt[i]) + 0.587 * Color.green(imgInt[i]) + 0.114 * Color.blue(imgInt[i]));
+        //data[i] = Color.red(imgInt[i]);
+
+        for(int i=0;i< 512 ;i++)
+        {
+            for(int j=0;j<512;j++){
+                if(j<3 && i<3)
+                    kernelBig[i*512+j] = kernelX[j+i*3];
+                else
+                    kernelBig[i*512+j] = 0;
+            }
+        }
+
+        //ComplexMath.real2Complex(kernelComplex,kernelBig,lenghComp);
+        //ComplexMath.real2Complex(dataComplex,data,lenghComp);
+
+        floatFFT2D.complexForward(dataComplex);
+        floatFFT2D.complexForward(kernelComplex);
+        ComplexMath.complexMult(result,dataComplex,kernelComplex);
+
+        floatFFT2D.complexInverse(result,true);
+        //ComplexMath.complexMag(Gx,result);
+
+        for(int i=0;i< 512 ;i++)
+        {
+            for(int j=0;j<512;j++){
+                if(j<3 && i<3)
+                    kernelBig[i*512+j] = kernelY[j+i*3];
+                else
+                    kernelBig[i*512+j] = 0;
+            }
+        }
+
+        //ComplexMath.real2Complex(kernelComplex,kernelBig,lenghComp);
+        floatFFT2D.complexForward(kernelComplex);
+        ComplexMath.complexMult(result,dataComplex,kernelComplex);
+        floatFFT2D.complexInverse(result,true);
+        //ComplexMath.complexMag(Gy,result);
+
+        ComplexMath.vectorMag(imgInt,Gx,Gy);
+
+        for(int i=0;i<lenghtReal;i++) {
+            int dataInt = imgInt[i];
+            imgInt[i] = 0xFF000000 | dataInt << 16 | dataInt << 8 | dataInt;
+        }
+
+        Bitmap imgFinal = Bitmap.createBitmap(width, height, image.getConfig());
+        imgFinal.setPixels(imgInt,0,width,0,0,width,height);
+        return imgFinal;
+    }
+
     public static Bitmap fastConvolution(Bitmap image, float kernel[])
     {
         int width = image.getWidth();
@@ -54,7 +130,7 @@ public class ConvolutionMatrix
 
         for(int i=0;i<lenghtReal;i++)
             data[i] = (float)(0.299 * Color.red(imgInt[i]) + 0.587 * Color.green(imgInt[i]) + 0.114 * Color.blue(imgInt[i]));
-            //data[i] = Color.red(imgInt[i]);
+        //data[i] = Color.red(imgInt[i]);
 
         for(int i=0;i< 512 ;i++)
         {
@@ -80,17 +156,17 @@ public class ConvolutionMatrix
         Bitmap imgFinal = Bitmap.createBitmap(width, height, image.getConfig());
 
         //for(int i=0; i< lenghtReal;i++)
-            //imgInt[i] = (int)dataComplex[i*2];
+        //imgInt[i] = (int)dataComplex[i*2];
         //for(int i=0;i<lenghtReal;i++)
-            //imgInt[i] = (int) result[i*2];
+        //imgInt[i] = (int) result[i*2];
         ComplexMath.complexMag(imgInt,result);
         for(int i=0;i<lenghtReal;i++) {
             int dataInt = imgInt[i];
             imgInt[i] = 0xFF000000 | dataInt << 16 | dataInt << 8 | dataInt;
         }
 
-       imgFinal.setPixels(imgInt,0,width,0,0,width,height);
-       return imgFinal;
+        imgFinal.setPixels(imgInt,0,width,0,0,width,height);
+        return imgFinal;
     }
 
     public static Bitmap computeConvolution3x3(Bitmap src, ConvolutionMatrix matrix) {

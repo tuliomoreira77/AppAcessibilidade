@@ -1,4 +1,4 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.acessoCamera;
 
 
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import javax.xml.transform.Result;
+import com.example.a06.trabalhoandroid.MainActivity;
+import com.example.a06.trabalhoandroid.dados.TtsData;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 

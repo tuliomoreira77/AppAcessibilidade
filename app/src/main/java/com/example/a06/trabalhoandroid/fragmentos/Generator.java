@@ -1,4 +1,4 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.fragmentos;
 
 
 import android.app.Activity;
@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.example.a06.trabalhoandroid.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;

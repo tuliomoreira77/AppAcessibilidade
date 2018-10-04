@@ -1,7 +1,9 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.processamentoDeImagens;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+
+import com.example.a06.trabalhoandroid.dados.Cor;
 
 public class DescobreCor {
 

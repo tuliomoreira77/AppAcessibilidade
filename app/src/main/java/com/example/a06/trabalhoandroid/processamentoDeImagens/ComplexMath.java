@@ -1,4 +1,4 @@
-package com.example.a06.trabalhoandroid;
+package com.example.a06.trabalhoandroid.processamentoDeImagens;
 
 public class ComplexMath {
 
@@ -25,5 +25,9 @@ public class ComplexMath {
         }
     }
 
-
+    public static void vectorMag(int result[], int gx[], int gy[])
+    {
+        for(int i=0; i<result.length; i++)
+            result[i] = (int)Math.sqrt(gx[i]*gx[i] +gy[i]*gy[i]);
+    }
 }
