@@ -53,7 +53,8 @@ public class ConvolutionMatrix
         image.getPixels(imgInt,0,width,0,0,width,height);
 
         for(int i=0;i<lenghtReal;i++)
-            data[i] = (float) (0.299 * Color.red(imgInt[i]) + 0.587 * Color.green(imgInt[i]) + 0.114 * Color.blue(imgInt[i]));
+            data[i] = (float)(0.299 * Color.red(imgInt[i]) + 0.587 * Color.green(imgInt[i]) + 0.114 * Color.blue(imgInt[i]));
+            //data[i] = Color.red(imgInt[i]);
 
         for(int i=0;i< 512 ;i++)
         {
@@ -66,6 +67,7 @@ public class ConvolutionMatrix
         }
 
         float[] kernelComplex = new float[width*2*height];
+
         ComplexMath.real2Complex(kernelComplex,kernelBig,lenghComp);
         ComplexMath.real2Complex(dataComplex,data,lenghComp);
 
@@ -73,16 +75,20 @@ public class ConvolutionMatrix
         floatFFT2D.complexForward(kernelComplex);
         ComplexMath.complexMult(result,dataComplex,kernelComplex);
 
-        floatFFT2D.complexInverse(dataComplex,false);
+        floatFFT2D.complexInverse(result,true);
 
         Bitmap imgFinal = Bitmap.createBitmap(width, height, image.getConfig());
 
-        for(int i=0; i< lenghtReal;i++)
-            imgInt[i] = (int)dataComplex[i*2];
+        //for(int i=0; i< lenghtReal;i++)
+            //imgInt[i] = (int)dataComplex[i*2];
         //for(int i=0;i<lenghtReal;i++)
             //imgInt[i] = (int) result[i*2];
+        ComplexMath.complexMag(imgInt,result);
+        for(int i=0;i<lenghtReal;i++) {
+            int dataInt = imgInt[i];
+            imgInt[i] = 0xFF000000 | dataInt << 16 | dataInt << 8 | dataInt;
+        }
 
-       //ComplexMath.complexMag(imgInt,dataComplex);
        imgFinal.setPixels(imgInt,0,width,0,0,width,height);
        return imgFinal;
     }
