@@ -159,14 +159,16 @@ public class DescobreCor {
     public static Bitmap blur(Bitmap imagem)
     {
         ConvolutionMatrix blur = new ConvolutionMatrix(3);
-        float[] filter = {(float)(1.0/16),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),(float)(1.0/4),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),(float)(1.0/16)};
+        float[] filter = {(float)(1.0/16),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),
+                (float)(1.0/4),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),(float)(1.0/16)};
         Bitmap imgBlur = ConvolutionMatrix.fastConvolution(imagem,filter);
         return imgBlur;
     }
 
     public static Bitmap edge(Bitmap imagem)
     {
-        return null;
+        Bitmap imgEdg = ConvolutionMatrix.fastEdge(imagem);
+        return imgEdg;
     }
 
     static int numCores()

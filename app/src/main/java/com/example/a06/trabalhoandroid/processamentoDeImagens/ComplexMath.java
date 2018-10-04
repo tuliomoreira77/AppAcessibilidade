@@ -30,4 +30,17 @@ public class ComplexMath {
         for(int i=0; i<result.length; i++)
             result[i] = (int)Math.sqrt(gx[i]*gx[i] +gy[i]*gy[i]);
     }
+
+    public static void createKernel(float kernel[],int ksize, float kernelBig[],int rows,int colums)
+    {
+        for(int i=0;i < rows ;i++)
+        {
+            for(int j=0;j < colums;j++){
+                if(j<ksize && i<ksize)
+                    kernelBig[i*colums+j] = kernel[j+i*ksize];
+                else
+                    kernelBig[i*colums+j] = 0;
+            }
+        }
+    }
 }
