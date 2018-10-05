@@ -33,11 +33,12 @@ public class ComplexMath {
 
     public static void createKernel(float kernel[],int ksize, float kernelBig[],int rows,int colums)
     {
+        int n = (int)Math.sqrt(ksize);
         for(int i=0;i < rows ;i++)
         {
             for(int j=0;j < colums;j++){
-                if(j<ksize && i<ksize)
-                    kernelBig[i*colums+j] = kernel[j+i*ksize];
+                if(j < n && i< n)
+                    kernelBig[i*colums+j] = kernel[j+i*n];
                 else
                     kernelBig[i*colums+j] = 0;
             }

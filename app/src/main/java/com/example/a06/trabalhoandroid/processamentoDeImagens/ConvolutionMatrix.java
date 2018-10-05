@@ -48,7 +48,7 @@ public class ConvolutionMatrix
         int[] Gx = new int[lenghtReal];
         int[] Gy = new int[lenghtReal];
 
-        float[] kernelX = {-1,0,1,-1,0,2,-1,0,1};
+        float[] kernelX = {-1,0,1,-2,0,2,-1,0,1};
         float[] kernelY = {1,2,1,0,0,0,-1,-2,-1};
 
         float[] kernelBig = new float[width*2*height];
@@ -72,7 +72,7 @@ public class ConvolutionMatrix
         ComplexMath.complexMult(result,dataComplex,kernelComplex);
 
         floatFFT2D.complexInverse(result,true);
-        //ComplexMath.complexMag(Gx,result);
+        ComplexMath.complexMag(Gx,result);
 
         ComplexMath.createKernel(kernelY,kernelY.length,kernelBig, height, width);
 
@@ -80,14 +80,14 @@ public class ConvolutionMatrix
         floatFFT2D.complexForward(kernelComplex);
         ComplexMath.complexMult(result,dataComplex,kernelComplex);
         floatFFT2D.complexInverse(result,true);
-        //ComplexMath.complexMag(Gy,result);
+        ComplexMath.complexMag(Gy,result);
 
         ComplexMath.vectorMag(imgInt,Gx,Gy);
 
         for(int i=0;i<lenghtReal;i++) {
             int dataInt = imgInt[i];
 
-            if(dataInt < 100)
+            if(dataInt < 70)
                 dataInt = 0;
             else
                 dataInt = 255;
