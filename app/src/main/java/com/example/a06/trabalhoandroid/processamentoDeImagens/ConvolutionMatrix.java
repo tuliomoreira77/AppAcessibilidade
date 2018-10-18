@@ -57,10 +57,12 @@ public class ConvolutionMatrix
 
     public static void blur(int imgInt[], int width,int height)
     {
-        float[] filter = {(float)(1.0/16),(float)(1.0/8),(float)(1.0/16),
-                (float)(1.0/8), (float)(1.0/4),(float)(1.0/8),
-                (float)(1.0/16),(float)(1.0/8),(float)(1.0/16)};
-        ConvolutionMatrix.fastConvolution(imgInt,width,height,filter);
+        float[] kernel = {(float)0.003765,(float)0.015019,(float)0.023792,(float)0.015019,(float)0.003765,
+                (float)0.015019, (float)0.059912,(float)0.094907,(float)0.059912,(float)0.015019,
+                (float)0.023792,(float)0.094907,(float)	0.150342,(float)0.094907,(float)0.023792,
+                (float)0.015019,(float)	0.059912,(float)0.094907,(float)0.059912,(float)0.015019,
+                (float)0.003765,(float)	0.015019,(float)0.023792,(float)0.015019,(float)0.003765};
+        ConvolutionMatrix.fastConvolution(imgInt,width,height,kernel);
     }
 
 
@@ -72,7 +74,7 @@ public class ConvolutionMatrix
         float[] dataComplex = new float[width*2*height];
         float[] result = new float[width*2*height];
 
-        float[] kernelBig = new float[width*2*height];
+        float[] kernelBig = new float[width*height];
         float[] data = new float[lenghtReal];
 
         FloatFFT_2D floatFFT2D = new FloatFFT_2D(width,height);

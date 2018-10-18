@@ -59,7 +59,7 @@ public class ColorScaner extends Fragment {
         System.out.println("Altura: " + Integer.toString(width));
         int centerX=width/2;
         int centerY=height/2;
-        
+
         Bitmap imgProc = Bitmap.createBitmap(image,centerX -50, centerY-50,100,100);
         imgProc = DescobreCor.blur(imgProc);
         imgProc = DescobreCor.normalize(imgProc);
