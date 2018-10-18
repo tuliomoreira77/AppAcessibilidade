@@ -2,7 +2,10 @@ package com.example.a06.trabalhoandroid.fragmentos;
 
 
 import android.graphics.Bitmap;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.a06.trabalhoandroid.MainActivity;
 import com.example.a06.trabalhoandroid.R;
+import com.example.a06.trabalhoandroid.dados.Cor;
 import com.example.a06.trabalhoandroid.dados.TtsData;
 import com.example.a06.trabalhoandroid.acessoCamera.MostraCamera;
 import com.example.a06.trabalhoandroid.processamentoDeImagens.DescobreCor;
@@ -55,11 +59,15 @@ public class ColorScaner extends Fragment {
         System.out.println("Altura: " + Integer.toString(width));
         int centerX=width/2;
         int centerY=height/2;
+        
+        Bitmap imgProc = Bitmap.createBitmap(image,centerX -50, centerY-50,100,100);
+        imgProc = DescobreCor.blur(imgProc);
+        imgProc = DescobreCor.normalize(imgProc);
+        Cor cor = DescobreCor.contaPixels(imgProc);
+        ttsdata.setData(cor.getNome());
 
-        //Bitmap imgNor = DescobreCor.normalizaImagem(image);
-        Bitmap imgNor = DescobreCor.edge(image);
         String bitmapPath = MediaStore.Images.Media.insertImage(
-                getActivity().getContentResolver(), imgNor,"title", null);
+                getActivity().getContentResolver(), imgProc,"title", null);
         //int pixel = image.getPixel(centerX,centerY);
         //String cor = DescobreCor.getNome(pixel);
         //Cor cor = DescobreCor.contaPixels(image,100);

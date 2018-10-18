@@ -1,13 +1,15 @@
 package com.example.a06.trabalhoandroid.processamentoDeImagens;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 
 import com.example.a06.trabalhoandroid.dados.Cor;
 
 public class DescobreCor {
 
-    public static int normalize(int cor)
+    public static int normalizaCor(int cor)
     {
         float hsv[] = new float[3];
         int hue,sat,val;
@@ -115,23 +117,25 @@ public class DescobreCor {
     }
 
 
-    public static Cor contaPixels(Bitmap image, int tamanho)
+    public static Cor contaPixels(Bitmap image)
     {
-        int inicioX = image.getWidth()/2 - tamanho/2;
-        int inicioY = image.getHeight()/2 - tamanho/2;
         int id[] = new int[DescobreCor.numCores()];
         int idMax = 0;
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int lenghtReal = width*height;
+
+        int[] imgInt = new int[lenghtReal];
+        image.getPixels(imgInt,0,width,0,0,width,height);
 
         for(int i=0;i<DescobreCor.numCores();i++)
             id[i] = 0;
 
-        for(int i=0;i<tamanho;i++)
+        for(int i=0;i<lenghtReal;i++)
         {
-            for(int j=0;j<tamanho;j++)
-            {
-                int cor = DescobreCor.getByValue(image.getPixel(inicioX+i,inicioY+j)).getId();
-                id[cor]++;
-            }
+            int cor = DescobreCor.getByValue(imgInt[i]).getId();
+            id[cor]++;
         }
         for(int i=0; i < numCores()-1; i++)
         {
@@ -142,32 +146,92 @@ public class DescobreCor {
         return DescobreCor.getById(idMax);
     }
 
-    public static Bitmap normalizaImagem(Bitmap imagem)
+    public static Bitmap normalize(Bitmap image)
     {
-        Bitmap imgNor = imagem;
-        for(int i=0; i < imgNor.getWidth(); i++)
-        {
-            for(int j=0; j < imgNor.getHeight(); j++)
-            {
-                int pixelNormalized = DescobreCor.normalize(imagem.getPixel(i,j));
-                imgNor.setPixel(i,j,pixelNormalized);
-            }
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int lenghtReal = width*height;
+
+        int[] imgInt = new int[lenghtReal];
+        image.getPixels(imgInt,0,width,0,0,width,height);
+
+        int[] imgRed = new int[lenghtReal];
+        int[] imgBlue = new int[lenghtReal];
+        int[] imgGreen = new int[lenghtReal];
+
+        for(int i=0;i<lenghtReal;i++) {
+            imgRed[i] = Color.red(imgInt[i]);
+            imgGreen[i] = Color.green(imgInt[i]);
+            imgBlue[i] = Color.blue(imgInt[i]);
         }
-        return imgNor;
+
+        for(int i=0;i<lenghtReal;i++) {
+
+            imgRed[i] = 255*imgRed[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
+            imgGreen[i] = 255*imgGreen[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
+            imgBlue[i] = 255*imgBlue[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
+
+            imgInt[i] = 0xFF000000 | imgRed[i] << 16 | imgGreen[i] << 8 | imgBlue[i];
+        }
+
+        Bitmap imgFinal = Bitmap.createBitmap(width, height, image.getConfig());
+        imgFinal.setPixels(imgInt,0,width,0,0,width,height);
+        return imgFinal;
     }
 
-    public static Bitmap blur(Bitmap imagem)
+    public static Bitmap blur(Bitmap image)
     {
-        ConvolutionMatrix blur = new ConvolutionMatrix(3);
-        float[] filter = {(float)(1.0/16),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),
-                (float)(1.0/4),(float)(1.0/8),(float)(1.0/16),(float)(1.0/8),(float)(1.0/16)};
-        Bitmap imgBlur = ConvolutionMatrix.fastConvolution(imagem,filter);
-        return imgBlur;
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int lenghtReal = width*height;
+
+        int[] imgInt = new int[lenghtReal];
+        image.getPixels(imgInt,0,width,0,0,width,height);
+
+        int[] imgRed = new int[lenghtReal];
+        int[] imgBlue = new int[lenghtReal];
+        int[] imgGreen = new int[lenghtReal];
+
+        for(int i=0;i<lenghtReal;i++) {
+            imgRed[i] = Color.red(imgInt[i]);
+            imgGreen[i] = Color.green(imgInt[i]);
+            imgBlue[i] = Color.blue(imgInt[i]);
+        }
+        ConvolutionMatrix.blur(imgRed,width,height);
+        ConvolutionMatrix.blur(imgGreen,width,height);
+        ConvolutionMatrix.blur(imgBlue,width,height);
+
+        for(int i=0;i<lenghtReal;i++) {
+
+            imgInt[i] = 0xFF000000 | imgRed[i] << 16 | imgGreen[i] << 8 | imgBlue[i];
+        }
+
+        Bitmap imgFinal = Bitmap.createBitmap(width, height, image.getConfig());
+        imgFinal.setPixels(imgInt,0,width,0,0,width,height);
+        return imgFinal;
     }
 
-    public static Bitmap edge(Bitmap imagem)
+    public static Bitmap edge(Bitmap image)
     {
-        Bitmap imgEdg = ConvolutionMatrix.fastEdge(imagem);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int lenghtReal = width*height;
+
+        int[] imgInt = new int[lenghtReal];
+
+        image.getPixels(imgInt,0,width,0,0,width,height);
+        ConvolutionMatrix.fastEdge(imgInt,width,height);
+        for(int i=0;i<lenghtReal;i++) {
+            int dataInt = imgInt[i];
+
+            if(dataInt < 100)
+                imgInt[i] = 0x00000000 | dataInt << 16 | dataInt << 8 | dataInt;
+            else
+                imgInt[i] = 0xFF000000 | 255 << 16 | 255 << 8 | 255;
+        }
+
+        Bitmap imgEdg = Bitmap.createBitmap(width, height, image.getConfig());
+        imgEdg.setPixels(imgInt,0,width,0,0,width,height);
         return imgEdg;
     }
 
