@@ -82,7 +82,8 @@ public class ConvolutionMatrix
         /*for(int i=0;i<lenghtReal;i++)
             data[i] = (float)(0.299 * Color.red(imgInt[i]) + 0.587 * Color.green(imgInt[i])
                     + 0.114 * Color.blue(imgInt[i]));*/
-        //data[i] = Color.red(imgInt[i]);
+        for(int i=0; i<lenghtReal; i++)
+            data[i] = imgInt[i];
 
         ComplexMath.createKernel(kernel,kernel.length,kernelBig, height, width);
 

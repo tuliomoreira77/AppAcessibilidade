@@ -137,10 +137,10 @@ public class DescobreCor {
             int cor = DescobreCor.getByValue(imgInt[i]).getId();
             id[cor]++;
         }
-        for(int i=0; i < numCores()-1; i++)
+        for(int i=0; i < numCores(); i++)
         {
-            if(id[i] < id[i+1])
-                idMax = i+1;
+            if(id[idMax] < id[i])
+                idMax = i;
         }
 
         return DescobreCor.getById(idMax);

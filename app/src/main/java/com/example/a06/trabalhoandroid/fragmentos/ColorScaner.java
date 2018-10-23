@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.a06.trabalhoandroid.MainActivity;
 import com.example.a06.trabalhoandroid.R;
@@ -62,7 +63,7 @@ public class ColorScaner extends Fragment {
 
         Bitmap imgProc = Bitmap.createBitmap(image,centerX -50, centerY-50,100,100);
         imgProc = DescobreCor.blur(imgProc);
-        imgProc = DescobreCor.normalize(imgProc);
+        //imgProc = DescobreCor.normalize(imgProc);
         Cor cor = DescobreCor.contaPixels(imgProc);
         ttsdata.setData(cor.getNome());
 
@@ -71,7 +72,7 @@ public class ColorScaner extends Fragment {
         //int pixel = image.getPixel(centerX,centerY);
         //String cor = DescobreCor.getNome(pixel);
         //Cor cor = DescobreCor.contaPixels(image,100);
-        //Toast.makeText(getContext(), cor.getNome(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), cor.getNome(),Toast.LENGTH_SHORT).show();
         //ttsdata.setData(cor.getNome());
     }
 
