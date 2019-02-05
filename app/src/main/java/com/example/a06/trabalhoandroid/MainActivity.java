@@ -19,7 +19,6 @@ import com.example.a06.trabalhoandroid.dados.TtsData;
 import com.example.a06.trabalhoandroid.fragmentos.ColorScaner;
 import com.example.a06.trabalhoandroid.fragmentos.Generator;
 import com.example.a06.trabalhoandroid.fragmentos.Scanner;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity
 
     TextToSpeech tts;
     TtsData ttsData  = null;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

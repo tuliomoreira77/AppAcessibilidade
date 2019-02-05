@@ -167,9 +167,9 @@ public class DescobreCor {
 
         for(int i=0;i<lenghtReal;i++) {
 
-            imgRed[i] = 255*imgRed[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
-            imgGreen[i] = 255*imgGreen[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
-            imgBlue[i] = 255*imgBlue[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]);
+            imgRed[i] = 255*imgRed[i]/(imgRed[i] + imgBlue[i] + imgGreen[i] +1);
+            imgGreen[i] = 255*imgGreen[i]/(imgRed[i] + imgBlue[i] + imgGreen[i] +1);
+            imgBlue[i] = 255*imgBlue[i]/(imgRed[i] + imgBlue[i] + imgGreen[i]+1);
 
             imgInt[i] = 0xFF000000 | imgRed[i] << 16 | imgGreen[i] << 8 | imgBlue[i];
         }
@@ -200,6 +200,9 @@ public class DescobreCor {
         ConvolutionMatrix.blur(imgRed,width,height);
         ConvolutionMatrix.blur(imgGreen,width,height);
         ConvolutionMatrix.blur(imgBlue,width,height);
+
+        Bitmap imgRedB = Bitmap.createBitmap(width, height, image.getConfig());
+        imgRedB.setPixels(imgInt,0,width,0,0,width,height);
 
         for(int i=0;i<lenghtReal;i++) {
 

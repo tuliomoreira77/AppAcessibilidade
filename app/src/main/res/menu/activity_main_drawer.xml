@@ -16,6 +16,10 @@
             android:id="@+id/generator"
             android:icon="@drawable/ic_qrcode"
             android:title="Gerador de QRCode" />
+        <item
+            android:id="@+id/text_scanner"
+            android:icon="@drawable/ic_qrcode"
+            android:title="Escaneador de Texto" />
     </group>
 
 </menu>

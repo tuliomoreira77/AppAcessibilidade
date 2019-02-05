@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fundo_amarelo"
-    tools:context=".fragmentos.ColorScaner">
+    tools:context=".fragmentos.ColorScaner"
+    tools:ignore="ExtraText">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextureView
-        android:id="@+id/textureView"
-        android:layout_width="512px"
-        android:layout_height="512px"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
+    <com.camerakit.CameraKitView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
